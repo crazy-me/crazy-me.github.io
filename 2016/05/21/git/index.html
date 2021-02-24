@@ -330,7 +330,7 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h3 id="使用GIT在本地创建一个项目"><a href="#使用GIT在本地创建一个项目" class="headerlink" title="使用GIT在本地创建一个项目"></a><font color="#006600">使用GIT在本地创建一个项目</font></h3><blockquote>
-<p><font color="#7ab2fa">$ mkdir ~/hello-world    //创建一个项目hello-world<br>$ cd ~/hello-world       //打开这个项目<br>$ git init             //初始化<br>$ touch README<br>$ git add README        //更新README文件<br>$ git commit -m ‘first commit’     //提交更新，并注释信息“first commit”<br>$ git remote add origin <a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#104;&#x75;&#98;&#46;&#x74;&#x65;&#115;&#116;">&#103;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#104;&#x75;&#98;&#46;&#x74;&#x65;&#115;&#116;</a>/hellotest.git     //连接远程github项目<br>$ git push -u origin master     //将本地项目更新到github项目上去</font></p>
+<p><font color="#7ab2fa">$ mkdir ~/hello-world    //创建一个项目hello-world<br>$ cd ~/hello-world       //打开这个项目<br>$ git init             //初始化<br>$ touch README<br>$ git add README        //更新README文件<br>$ git commit -m ‘first commit’     //提交更新，并注释信息“first commit”<br>$ git remote add origin <a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x74;&#x65;&#115;&#x74;">&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x74;&#x65;&#115;&#x74;</a>/hellotest.git     //连接远程github项目<br>$ git push -u origin master     //将本地项目更新到github项目上去</font></p>
 </blockquote>
 <p>git设置关闭自动换行</p>
 <p><font color="#7ab2fa">$ git config –global core.autocrlf false </font></p>
@@ -350,7 +350,7 @@
 <p><font color="#7ab2fa">git rm *.pyc</font></p>
 </blockquote>
 <h3 id="git变更项目地址"><a href="#git变更项目地址" class="headerlink" title="git变更项目地址"></a><font color="#006600">git变更项目地址</font></h3><blockquote>
-<p><font color="#7ab2fa">git remote set-url origin <a href="mailto:&#103;&#105;&#116;&#64;&#49;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#x36;&#x2e;&#x37;&#48;">&#103;&#105;&#116;&#64;&#49;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#x36;&#x2e;&#x37;&#48;</a>:res_dev_group/test.git<br>git remote -v</font></p>
+<p><font color="#7ab2fa">git remote set-url origin <a href="mailto:&#x67;&#105;&#116;&#64;&#49;&#57;&#x32;&#x2e;&#49;&#54;&#56;&#x2e;&#x36;&#46;&#55;&#x30;">&#x67;&#105;&#116;&#64;&#49;&#57;&#x32;&#x2e;&#49;&#54;&#56;&#x2e;&#x36;&#46;&#55;&#x30;</a>:res_dev_group/test.git<br>git remote -v</font></p>
 </blockquote>
 <h3 id="查看某个文件的修改历史"><a href="#查看某个文件的修改历史" class="headerlink" title="查看某个文件的修改历史"></a><font color="#006600">查看某个文件的修改历史</font></h3><blockquote>
 <p><font color="#7ab2fa">git log –pretty=oneline 文件名 # 显示修改历史<br>git show 356f6def9d3fb7f3b9032ff5aa4b9110d4cca87e # 查看更改</font></p>
@@ -444,7 +444,7 @@
 <p>提交代码git push，如果提交失败的可能原因是本地代码库版本不是最新。</p>
 <h3 id="创建和使用git-ssh-key"><a href="#创建和使用git-ssh-key" class="headerlink" title=" 创建和使用git ssh key"></a><font color="#006600"> 创建和使用git ssh key</font></h3><p>首先设置git的user name和email</p>
 <blockquote>
-<p><font color="#7ab2fa">git config –global user.name “xxx”<br>git config –global user.email “<a href="mailto:&#120;&#x78;&#120;&#x40;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#120;&#x78;&#120;&#x40;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a>“</font></p>
+<p><font color="#7ab2fa">git config –global user.name “xxx”<br>git config –global user.email “<a href="mailto:&#x78;&#x78;&#x78;&#x40;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x78;&#x78;&#x78;&#x40;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a>“</font></p>
 </blockquote>
 <p>查看git配置</p>
 <blockquote>
@@ -452,7 +452,7 @@
 </blockquote>
 <p>然后生成SHH密匙<br>查看是否已经有了ssh密钥：cd ~/.ssh<br>如果没有密钥则不会有此文件夹，有则备份删除<br>生成密钥</p>
 <blockquote>
-<p><font color="#7ab2fa">ssh-keygen -t rsa -C “<a href="mailto:&#x61;&#117;&#x74;&#x68;&#122;&#x6a;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#109;">&#x61;&#117;&#x74;&#x68;&#122;&#x6a;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#109;</a>“</font></p>
+<p><font color="#7ab2fa">ssh-keygen -t rsa -C “<a href="mailto:&#x61;&#117;&#116;&#x68;&#122;&#106;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#x61;&#117;&#116;&#x68;&#122;&#106;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;</a>“</font></p>
 </blockquote>
 <p>按3个回车，密码为空这里一般不使用密钥。<br>最后得到了两个文件：id_rsa和id_rsa.pub<br>注意：密匙生成就不要改了，如果已经生成到~/.ssh文件夹下去找。</p>
 
