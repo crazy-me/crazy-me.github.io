@@ -17,16 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档 | fixblog-侯爽</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="fixblog-侯爽">
-<meta property="og:url" content="http://www.fixblog.cn/archives/index.html">
+  <title>Centos下安装配置Redis | fixblog-侯爽</title>
+  <meta name="description" content="下载1[root@bo local]# wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-4.0.9.tar.gz  # 改变版本选择相应版本  1[root@bo local]# tar -zxvf redis-4.0.9.tar.gz # 解压  安装123[root@bo local]# cd &#x2F;usr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos下安装配置Redis">
+<meta property="og:url" content="http://www.fixblog.cn/2018/05/04/centos-redis/index.html">
 <meta property="og:site_name" content="fixblog-侯爽">
+<meta property="og:description" content="下载1[root@bo local]# wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-4.0.9.tar.gz  # 改变版本选择相应版本  1[root@bo local]# tar -zxvf redis-4.0.9.tar.gz # 解压  安装123[root@bo local]# cd &#x2F;usr">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-05-04T15:01:35.000Z">
+<meta property="article:modified_time" content="2021-02-23T10:09:37.376Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://www.fixblog.cn/archives/index.html">
+  <link rel="canonical" href="http://www.fixblog.cn/2018/05/04/centos-redis/index.html">
   
     <link rel="alternate" href="/atom.xml" title="fixblog-侯爽" type="application/atom+xml">
   
@@ -37,6 +41,8 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitment@0.0.3/style/default.min.css">
   
   
   
@@ -325,174 +331,196 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档</h1>
-	      <p class="text-muted">共 10 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
+  <div class="content">
+  <article id="post-centos-redis" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
   
+    <h1 class="article-title" itemprop="name">
+      Centos下安装配置Redis
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/05/04/centos-redis/" class="article-date">
+	  <time datetime="2018-05-04T15:01:35.000Z" itemprop="datePublished">2018-05-04</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/05/04/centos-redis/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 329(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bo local]# wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-4.0.9.tar.gz  # 改变版本选择相应版本</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bo local]# tar -zxvf redis-4.0.9.tar.gz # 解压</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@bo local]# cd &#x2F;usr&#x2F;local&#x2F;redis-4.0.9 # 进入解压的目录</span><br><span class="line">[root@bo local]# make MALLOC&#x3D;libc # 编译安装</span><br><span class="line">[root@bo local]# cd &#x2F;src &amp;&amp; make install # 将src目录下的文件添加到&#x2F;usr&#x2F;local&#x2F;bin目录下</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bo local]# cd &#x2F;usr&#x2F;local&#x2F;redis-4.0.9&#x2F;src</span><br><span class="line">[root@bo local]# .&#x2F;redis-server # 启动redis</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>后台运行</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bo local]# vim &#x2F;usr&#x2F;local&#x2F;redis-4.0.9&#x2F;redis.conf</span><br><span class="line">将 daemonize no 配置项修改为 daemonize yes  redis后台运行</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在&#x2F;etc&#x2F;目录下创建redis目录</span><br><span class="line">[root@bo local]# mkdir &#x2F;etc&#x2F;redis</span><br><span class="line">将redis.conf配置文件复制一份到&#x2F;etc&#x2F;redis目录下并改名为6379.conf</span><br><span class="line">[root@bo local]# cp &#x2F;usr&#x2F;local&#x2F;redis-4.0.9&#x2F;redis.conf &#x2F;etc&#x2F;redis&#x2F;6379.conf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动脚本</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将redis的启动将本复制到系统init.d目录下</span><br><span class="line">[root@bo local]# cp &#x2F;usr&#x2F;local&#x2F;redis-4.0.9&#x2F;utils&#x2F;redis_init_script &#x2F;etc&#x2F;init.d&#x2F;redisd</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置开机自启动</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bo local]# cd &#x2F;etc&#x2F;init.d</span><br><span class="line">[root@bo local]# chkconfig redisd on # 执行自启命令</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis 启动 service redisd start</span><br><span class="line">redis 关闭 service redisd stop</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.fixblog.cn/2018/05/04/centos-redis/" title="Centos下安装配置Redis" target="_blank" rel="external">http://www.fixblog.cn/2018/05/04/centos-redis/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/crazy-me" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/crazy-me" target="_blank"><span class="text-dark">侯爽</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
   
     
+  <section id="comments">
+  	
+
     
-      
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2018" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2018
-            </a>
-            <!-- <a href="/archives/2018" class="archive-year">2018</a> -->
-          </h3>
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2017/04/24/jetbrains-agent/" title="jetbrains激活教程"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/ali.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/wechat.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div id="collapse2018" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2018">
-        <div class="panel-body">
-          <div class="collection">
-    
-    
-<a href="/2018/05/04/centos-redis/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2018-05-04T15:01:35.000Z" itemprop="datePublished">2018-05-04</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Centos下安装配置Redis
-</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-  
-    
-    
-      
-        </div></div></div></section>
-      
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2017" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2017
-            </a>
-            <!-- <a href="/archives/2017" class="archive-year">2017</a> -->
-          </h3>
-        </div>
-        <div id="collapse2017" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2017">
-        <div class="panel-body">
-          <div class="collection">
-    
-    
-<a href="/2017/04/24/jetbrains-agent/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2017-04-24T04:57:00.000Z" itemprop="datePublished">2017-04-24</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> jetbrains激活教程
-</a>
 
-
-  
-    
-    
-    
-<a href="/2017/04/12/mysql-transaction/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2017-04-12T03:17:13.000Z" itemprop="datePublished">2017-04-12</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> mysql事物
-</a>
-
-
-  
-    
-    
-    
-<a href="/2017/04/05/centos-mysql/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2017-04-05T08:58:22.000Z" itemprop="datePublished">2017-04-05</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Centos7下安装MySql8
-</a>
-
-
-  
-    
-    
-    
-<a href="/2017/03/22/consul/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2017-03-22T07:02:01.000Z" itemprop="datePublished">2017-03-22</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> consul配置
-</a>
-
-
-  
-    
-    
-    
-<a href="/2017/03/22/git-lab/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2017-03-22T07:02:01.000Z" itemprop="datePublished">2017-03-22</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Linux搭建GitLab服务器
-</a>
-
-
-  
-    
-    
-    
-<a href="/2017/03/17/phpstorm-quick-check-list/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2017-03-17T06:40:44.000Z" itemprop="datePublished">2017-03-17</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> phpstorm-速查表
-</a>
-
-
-  
-    
-    
-    
-<a href="/2017/02/03/centos-hexo/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2017-02-03T07:42:07.000Z" itemprop="datePublished">2017-02-03</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 记录Hexo博客的搭建
-</a>
-
-
-  
-    
-    
-      
-        </div></div></div></section>
-      
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2016" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2016
-            </a>
-            <!-- <a href="/archives/2016" class="archive-year">2016</a> -->
-          </h3>
-        </div>
-        <div id="collapse2016" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2016">
-        <div class="panel-body">
-          <div class="collection">
-    
-    
-<a href="/2016/05/21/git/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2016-05-21T06:34:23.000Z" itemprop="datePublished">2016-05-21</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> GIT简介
-</a>
-
-
-  
-    
-    
-    
-<a href="/2016/04/26/error/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2016-04-26T12:15:46.000Z" itemprop="datePublished">2016-04-26</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> PHP的错误机制总结
-</a>
-
-
-  
-  
-    </div></div></div></section>
-  
-
-	    </div>
-  	</article>
-  	 	
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -553,6 +581,32 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+
+   
+
+
+
+
+   
+    
+<script src="//cdn.jsdelivr.net/npm/gitment@0.0.3/dist/gitment.browser.min.js"></script>
+<script>
+var gitment = new Gitment({
+  // id默认为当前页面url，如果url后带参数或锚点，gitment要重新初始化
+  // https://github.com/imsun/gitment/issues/55
+  // 解决方案：id:window.location.pathname,或者将id设置为当前页面标题
+  id: 'Centos下安装配置Redis', 
+  owner: 'crazy-me', // 可以是你的GitHub用户名，也可以是github id
+  repo: 'crazy-comments',
+  oauth: {
+    client_id: '101859',
+    client_secret: 'Iv1.e42d838e70b6a3a6',
+  }
+})
+gitment.render('comments')
+</script>
 
 
 
