@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Nginx的基本操作 | fixblog-侯爽</title>
+  <meta name="description" content="Nginx 稳定性强，7*24小时不间断运行 Nginx提供了非常丰富的配置实例 占用内存小，并发能力强  Docker安装docker-compose.yml文件 12345678910version: &quot;3.1&quot;services:   nginx:     restart: always    image: daocloud.io&#x2F;library&#x2F;nginx:latest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx的基本操作">
+<meta property="og:url" content="http://www.fixblog.cn/2019/01/03/nginx-basic/index.html">
+<meta property="og:site_name" content="fixblog-侯爽">
+<meta property="og:description" content="Nginx 稳定性强，7*24小时不间断运行 Nginx提供了非常丰富的配置实例 占用内存小，并发能力强  Docker安装docker-compose.yml文件 12345678910version: &quot;3.1&quot;services:   nginx:     restart: always    image: daocloud.io&#x2F;library&#x2F;nginx:latest">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fixblog.oss-cn-shanghai.aliyuncs.com/fixblog/images/nginx-server.png">
+<meta property="og:image" content="https://fixblog.oss-cn-shanghai.aliyuncs.com/fixblog/images/nginx-agent.png">
+<meta property="og:image" content="https://fixblog.oss-cn-shanghai.aliyuncs.com/fixblog/images/nginx-cluster.png">
+<meta property="article:published_time" content="2019-01-03T09:40:11.000Z">
+<meta property="article:modified_time" content="2021-02-24T06:45:53.317Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fixblog.oss-cn-shanghai.aliyuncs.com/fixblog/images/nginx-server.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.fixblog.cn/2019/01/03/nginx-basic/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="fixblog-侯爽" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/crazy-me" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">侯爽</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> BeiJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/crazy-me" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/5578860218" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 14px;">Go</a> <a href="/tags/defer/" style="font-size: 13px;">defer</a> <a href="/tags/docker/" style="font-size: 13px;">docker</a> <a href="/tags/linux-hexo/" style="font-size: 13px;">linux hexo</a> <a href="/tags/mysql/" style="font-size: 13px;">mysql</a> <a href="/tags/nginx/" style="font-size: 13px;">nginx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/02/24/redis-basic/" class="title">redis的常用指令及介绍</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-02-24T06:43:03.000Z" itemprop="datePublished">2019-02-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/02/03/go-defer/" class="title">Go语言defer的那些事儿</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-02-03T03:13:23.000Z" itemprop="datePublished">2019-02-03</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/01/24/go-basic/" class="title">Go的灵魂拷问</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-01-24T12:09:23.000Z" itemprop="datePublished">2019-01-24</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/01/18/docker-basic/" class="title">记录docker的基本操作</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-01-18T02:09:06.000Z" itemprop="datePublished">2019-01-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/01/03/nginx-basic/" class="title">Nginx的基本操作</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-01-03T09:40:11.000Z" itemprop="datePublished">2019-01-03</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-nginx-basic" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nginx的基本操作
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/01/03/nginx-basic/" class="article-date">
+	  <time datetime="2019-01-03T09:40:11.000Z" itemprop="datePublished">2019-01-03</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/nginx/" rel="tag">nginx</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/01/03/nginx-basic/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.5k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><blockquote>
+<p>稳定性强，7*24小时不间断运行</p>
+<p>Nginx提供了非常丰富的配置实例</p>
+<p>占用内存小，并发能力强</p>
+</blockquote>
+<h3 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h3><p><a href="">docker-compose.yml文件</a></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.1&quot;</span></span><br><span class="line"><span class="attr">services:</span> </span><br><span class="line">  <span class="attr">nginx:</span> </span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">daocloud.io/library/nginx:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">ports:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="number">80</span><span class="string">:80</span></span><br><span class="line">    <span class="attr">volumes:</span> </span><br><span class="line">      <span class="bullet">-</span> <span class="string">/opt/docker_nginx/conf.d/:/etc/nginx/conf.d</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行拉取镜像</span></span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Nginx配置文件</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line"># 以上统称为全局块 worker_processes数值越大并发越强</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># events块</span><br><span class="line"># worker_connections他的数值越大并发越强</span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types; #大量的媒体类型</span><br><span class="line">    default_type  application/octet-stream; # 默认响应的类型</span><br><span class="line"></span><br><span class="line">    log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">                      &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                      &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Nginx-反向代理"><a href="#Nginx-反向代理" class="headerlink" title="Nginx 反向代理"></a>Nginx 反向代理</h3><blockquote>
+<p>正向代理：</p>
+<ul>
+<li>正向代理服务时由客户端设立的</li>
+<li>客户端了解代理服务器和目标服务器都是谁</li>
+<li>帮助实现突破访问权限，提高访问速度对目标服务器隐藏客户端的IP地址。</li>
+</ul>
+</blockquote>
+<p><img src="https://fixblog.oss-cn-shanghai.aliyuncs.com/fixblog/images/nginx-server.png" alt="alatar"></p>
+<hr>
+<blockquote>
+<p>反向代理：</p>
+<ul>
+<li>反向代理服务器是配置在服务端的。</li>
+<li>客户端不知道到底访问的是哪一台服务器。</li>
+<li>反向代理可以达到负载均衡，并且可以隐藏服务器真正的IP地址。</li>
+</ul>
+</blockquote>
+<p><img src="https://fixblog.oss-cn-shanghai.aliyuncs.com/fixblog/images/nginx-agent.png" alt="alatar"></p>
+<hr>
+<blockquote>
+<p>Nginx 配置反向代理：</p>
+<ul>
+<li>准备一个目标服务器</li>
+<li>修改nginx配置文件，通过nginx访问到目标服务器</li>
+</ul>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">   listen 8000;</span><br><span class="line">   server_name localhost;</span><br><span class="line"></span><br><span class="line">   <span class="comment"># 基于反向代理访问</span></span><br><span class="line">   location / &#123;</span><br><span class="line">      proxy_pass http://www.fixblog.cn;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">#location / &#123;</span></span><br><span class="line">   <span class="comment">#   root /usr/share/nginx/html;</span></span><br><span class="line">   <span class="comment">#   index index.html index.htm;</span></span><br><span class="line">   <span class="comment">#&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p>Nginx的location路径映射</p>
+<p>​    优先级关系：</p>
+<p>​        (location=) &gt; (location /xxx/yyy/zzz) &gt; (location ^~)&gt;(location ~, ~*) &gt; (location /起始路径)&gt;(location /)</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># =匹配</span><br><span class="line">location = / &#123;</span><br><span class="line">   # 精确匹配,主机名后面不能带任何的字符串</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 通用匹配</span><br><span class="line">location /xxx &#123;</span><br><span class="line">   # 匹配所有以/xxx开头的路径</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 正则匹配</span><br><span class="line">location ~ /xxx &#123;</span><br><span class="line">   # 匹配所有以/xxx开头的路径</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 匹配开头路径</span><br><span class="line">location ^~ /images/ &#123;</span><br><span class="line">   # 匹配所有以/images开头的路径</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 匹配结尾</span><br><span class="line">~* \.(gif|jpg|png)$ &#123;</span><br><span class="line">   # 匹配以gif|jpg|png为结尾的路径</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Nginx负载均衡"><a href="#Nginx负载均衡" class="headerlink" title="Nginx负载均衡"></a>Nginx负载均衡</h3><blockquote>
+<p>Nginx默认提供了三种负载均衡策略：</p>
+<ul>
+<li><p>轮询：</p>
+<ul>
+<li>将客户端发起的请求，平均的分配给每一台服务器。</li>
+</ul>
+</li>
+<li><p>权重：</p>
+<ul>
+<li>会将客户端的请求，根据服务器的权重值不同，分配不同的数量。</li>
+</ul>
+</li>
+<li><p>IP_HASH：</p>
+<ul>
+<li>只要发起请求的客户端的IP地址不变，他始终会将请求发送到指定的服务器上。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 轮询方式配置负载均衡</span><br><span class="line"></span><br><span class="line">upstream my-server &#123; # server外部配置 upstream</span><br><span class="line">  server ip:port;</span><br><span class="line">  server ip:port;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">   listen 80;</span><br><span class="line">   server_name localhost;</span><br><span class="line"></span><br><span class="line">   location / &#123;</span><br><span class="line">      proxy_pass http://my-server/;</span><br><span class="line">   &#125;</span><br><span class="line">   #location / &#123;</span><br><span class="line">   #   root /usr/share/nginx/html;</span><br><span class="line">   #   index index.html index.htm;</span><br><span class="line">   #&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 权重方式配置负载均衡</span><br><span class="line">upstream my-server &#123;</span><br><span class="line">  server ip:port weight=10;  # 使用weight 配置请求的权重值</span><br><span class="line">  server ip:port weight=2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">   listen 8000;</span><br><span class="line">   server_name localhost;</span><br><span class="line"></span><br><span class="line">   location / &#123;</span><br><span class="line">      proxy_pass http://my-server/;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   #location / &#123;</span><br><span class="line">   #   root /usr/share/nginx/html;</span><br><span class="line">   #   index index.html index.htm;</span><br><span class="line">   #&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># IP_HASH方式配置负载均衡</span><br><span class="line">upstream my-server &#123;</span><br><span class="line">  ip_hash;				# 配置ip_hash参数即可</span><br><span class="line">  server ip:port;</span><br><span class="line">  server ip:port;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">   listen 8000;</span><br><span class="line">   server_name localhost;</span><br><span class="line"></span><br><span class="line">   location / &#123;</span><br><span class="line">      proxy_pass http://my-server/;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   #location / &#123;</span><br><span class="line">   #   root /usr/share/nginx/html;</span><br><span class="line">   #   index index.html index.htm;</span><br><span class="line">   #&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Nginx动静分离"><a href="#Nginx动静分离" class="headerlink" title="Nginx动静分离"></a>Nginx动静分离</h3><blockquote>
+<p>Nginx的并发能力公式：</p>
+<p>​    worker_processes * worker_connections / 4 | 2 = Nginx最终的并发能力</p>
+<p>​    动态资源乘以4 静态资源乘以2</p>
+<p>Nginx通过动静分离来提升Nginx的并发能力更快的响应</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 动态资源代理</span><br><span class="line">location / &#123;</span><br><span class="line">   proxy_pass 路径;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 静态资源代理</span><br><span class="line">location / &#123;</span><br><span class="line">  root 静态资源路径;</span><br><span class="line">  index 默认访问路径下的什么资源;</span><br><span class="line">  autoindex on; # 代表展示静态资源的全部内容 以列表的形式展开</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Nginx集群"><a href="#Nginx集群" class="headerlink" title="Nginx集群"></a>Nginx集群</h3><blockquote>
+<ul>
+<li>单点故障 避免nginx宕机导致整个程序的崩溃。</li>
+<li>准备多台Nginx 和keepalived(监听Nginx的健康情况)。</li>
+<li>准备haproxy 提供一个虚拟的路径，统一去接收用户请求。</li>
+</ul>
+</blockquote>
+<p><img src="https://fixblog.oss-cn-shanghai.aliyuncs.com/fixblog/images/nginx-cluster.png" alt="avatar"></p>
+<hr>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dockerfile 文件</span></span><br><span class="line">FROM nginx:1.13.5-alpine         <span class="comment"># 镜像</span></span><br><span class="line"></span><br><span class="line">RUN apk update &amp;&amp; apk upgrade    <span class="comment"># 更新 下载upgrade 相当于centos yum操作</span></span><br><span class="line"></span><br><span class="line">RUN apk add --no-cache bash curl ipvsadm iproute2 openrc keepalived  <span class="comment"># 下载</span></span><br><span class="line"></span><br><span class="line">COPY entrypoint.sh /entrypoint.sh  <span class="comment"># 复制脚本</span></span><br><span class="line"></span><br><span class="line">RUN chmod +x /entrypoint.sh        <span class="comment"># 给权限</span></span><br><span class="line"></span><br><span class="line">CMD [<span class="string">&quot;/entrypoint.sh&quot;</span>]             <span class="comment"># 启动时运行脚本</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># entrypoint.sh</span></span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#/usr/sbin/keepalived -n -l -D -f /etc/keepalived/keepalived.conf --dont-fork --log-console &amp;</span></span><br><span class="line">/usr/sbin/keepalived -D -f /etc/keepalived/keepalived.conf  <span class="comment"># 启动 keepalived 指定配置文件</span></span><br><span class="line"></span><br><span class="line">nginx -g <span class="string">&quot;daemon off;&quot;</span>   <span class="comment"># 启动nginx</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker-compose.yml</span></span><br><span class="line">version: <span class="string">&quot;3.1&quot;</span></span><br><span class="line">services:</span><br><span class="line">  nginx_master:</span><br><span class="line">    build:</span><br><span class="line">      context: ./</span><br><span class="line">      dockerfile: ./Dockerfile</span><br><span class="line">    ports:</span><br><span class="line">      - 8081:80</span><br><span class="line">    volumes:</span><br><span class="line">      - ./index-master.html:/usr/share/nginx/html/index.html</span><br><span class="line">      - ./favicon.ico:/usr/share/nginx/html/favicon.ico</span><br><span class="line">      - ./keepalived-master.conf:/etc/keepalived/keepalived.conf</span><br><span class="line">    networks:</span><br><span class="line">      static-network:</span><br><span class="line">        ipv4_address: 49.233.173.199  <span class="comment"># docker 容器的占用的ip</span></span><br><span class="line">    cap_add:           <span class="comment"># 添加一些权限</span></span><br><span class="line">      - NET_ADMIN</span><br><span class="line">  nginx_slave:</span><br><span class="line">    build:</span><br><span class="line">      context: ./</span><br><span class="line">      dockerfile: ./Dockerfile</span><br><span class="line">    ports:</span><br><span class="line">      - 8082:80</span><br><span class="line">    volumes:</span><br><span class="line">      - ./index-slave.html:/usr/share/nginx/html/index.html</span><br><span class="line">      - ./favicon.ico:/usr/share/nginx/html/favicon.ico</span><br><span class="line">      - ./keepalived-slave.conf:/etc/keepalived/keepalived.conf</span><br><span class="line">    networks:</span><br><span class="line">      static-network:</span><br><span class="line">        static-network:</span><br><span class="line">        ipv4_address: 49.233.173.199  <span class="comment"># docker 容器的占用的ip</span></span><br><span class="line">    cap_add:           <span class="comment"># 添加一些权限</span></span><br><span class="line">      - NET_ADMIN</span><br><span class="line">  proxy:</span><br><span class="line">    image: haproxy:1.7-alpine</span><br><span class="line">    ports:</span><br><span class="line">      - 6301:6301</span><br><span class="line">    volumes:</span><br><span class="line">      - ./haproxy.cfg:/usr/<span class="built_in">local</span>/etc/haproxy/haproxy.cfg</span><br><span class="line">    networks:</span><br><span class="line">      - static-network</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  static-network:</span><br><span class="line">    ipam:</span><br><span class="line">      config:</span><br><span class="line">        - subnet: 49.233.173.199/16</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># haproxy.cfg</span></span><br><span class="line">global</span><br><span class="line">    <span class="built_in">log</span> 127.0.0.1 local0</span><br><span class="line">    maxconn 4096</span><br><span class="line">    daemon</span><br><span class="line">    nbproc 4</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    <span class="built_in">log</span> 127.0.0.1 local3</span><br><span class="line">    mode http</span><br><span class="line">    option dontlognull</span><br><span class="line">    option redispatch</span><br><span class="line">    retries 2</span><br><span class="line">    maxconn 2000</span><br><span class="line">    balance roundrobin</span><br><span class="line">    timeout connect 5000ms</span><br><span class="line">    timeout client 5000ms</span><br><span class="line">    timeout server 5000ms</span><br><span class="line"></span><br><span class="line">frontend main</span><br><span class="line">    <span class="built_in">bind</span> *:6301</span><br><span class="line">    default_backend webserver</span><br><span class="line"></span><br><span class="line">backend webserver</span><br><span class="line">    server nginx_master 49.233.173.199:6301 check inter 2000 rise 2 fall 5</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># keepalived-master.conf</span></span><br><span class="line">vrrp_script chk_nginx &#123;</span><br><span class="line">    script <span class="string">&quot;pidof nginx&quot;</span></span><br><span class="line">    interval 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface eth0       <span class="comment">#容器内部的网卡名称</span></span><br><span class="line">    virtual_router_id 33</span><br><span class="line">    priority 200         <span class="comment"># 优先级</span></span><br><span class="line">    advert_int 1</span><br><span class="line"></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass letmein</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        49.233.173.199      <span class="comment"># 虚拟路径</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    track_script &#123;</span><br><span class="line">        chk_nginx</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># keepalived-slave.conf</span></span><br><span class="line">vrrp_script chk_nginx &#123;</span><br><span class="line">    script <span class="string">&quot;pidof nginx&quot;</span></span><br><span class="line">    interval 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">    interface eth0       <span class="comment">#容器内部的网卡名称</span></span><br><span class="line">    virtual_router_id 33</span><br><span class="line">    priority 100         <span class="comment"># 优先级</span></span><br><span class="line">    advert_int 1</span><br><span class="line"></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass letmein</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        49.233.173.199      <span class="comment"># 虚拟路径</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    track_script &#123;</span><br><span class="line">        chk_nginx</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.fixblog.cn/2019/01/03/nginx-basic/" title="Nginx的基本操作" target="_blank" rel="external">http://www.fixblog.cn/2019/01/03/nginx-basic/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/crazy-me" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/crazy-me" target="_blank"><span class="text-dark">侯爽</span><small class="ml-1x"></small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/01/18/docker-basic/" title="记录docker的基本操作"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/05/04/centos-redis/" title="Centos下安装配置Redis"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/ali.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/wechat.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/crazy-me" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/u/5578860218" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 John Doe
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'Iv1.e42d838e70b6a3a6',
+    clientSecret: '7efaf616f776dc6243c78119e293d51695fb126a',
+    repo: 'crazy-comments',
+    owner: 'crazy-me',
+    admin: ['crazy-me'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+</body>
+</html>
